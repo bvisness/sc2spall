@@ -2,16 +2,9 @@
 
 Converts the FlameGraph format (stackcollapse-*) to the Spall format.
 
-Spall is an extremely fast profiler by Colin Davidson, available
-at https://gravitymoth.com/spall/. For optimal file size and load times, Spall
-has a proprietary binary format. This tool produces files in that format.
+[Spall](https://gravitymoth.com/spall/) is an extremely fast profiler by Colin Davidson. For optimal file size and load times, Spall has a proprietary binary format. This tool produces files in that format.
 
-The FlameGraph format was created for Brendan Gregg's FlameGraph tool,
-available at https://www.brendangregg.com/FlameGraphs/cpuflamegraphs.html.
-A wide variety of stackcollapse-* scripts are available for different
-languages, e.g. stackcollapse-perf, stackcollapse-chrome-tracing, and
-stackcollapse-xdebug. This tool converts the collapsed format to Spall, so
-it should be compatible with any of those tools.
+The FlameGraph format was created for Brendan Gregg's [FlameGraph](https://www.brendangregg.com/FlameGraphs/cpuflamegraphs.html) tool. A wide variety of stackcollapse-* scripts are available for different languages, e.g. stackcollapse-perf, stackcollapse-chrome-tracing, and stackcollapse-xdebug. This tool converts the collapsed format to Spall, so it should be compatible with any of those tools.
 
 ## Installing
 
