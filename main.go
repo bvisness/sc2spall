@@ -41,6 +41,15 @@ it should be compatible with any of those tools.`,
 				}
 			}
 
+			passthrough, err := cmd.PersistentFlags().GetBool("passthrough")
+			if err != nil {
+				panic(err)
+			}
+			if passthrough && f == os.Stdout {
+				fmt.Fprintln(os.Stderr, "ERROR: --passthrough requires the use of --out (because --passthrough needs stdout)")
+				os.Exit(1)
+			}
+
 			p := spall.NewProfile(f, spall.UnitMilliseconds)
 			defer p.Close()
 			e := p.NewEventer()
@@ -52,6 +61,10 @@ it should be compatible with any of those tools.`,
 			scanner := bufio.NewScanner(os.Stdin)
 			for scanner.Scan() {
 				line := scanner.Text()
+				if passthrough {
+					fmt.Fprintln(os.Stdout, line)
+				}
+
 				stack := strings.TrimRight(line, "0123456789")
 				countStr := line[len(stack):]
 
@@ -90,6 +103,7 @@ it should be compatible with any of those tools.`,
 		},
 	}
 	rootCmd.PersistentFlags().StringP("out", "o", "", "The filename to write to. For stdout, use \"-\".")
+	rootCmd.PersistentFlags().Bool("passthrough", false, "Pass the input data through to stdout, making this tool invisible to pipelines. Requires --out.")
 
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Fprintln(os.Stderr, err)
